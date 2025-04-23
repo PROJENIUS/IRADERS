@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login/Register Modal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Login/Register Modal -->
+  <div class="overlay" id="loginModal">
+    <div class="modal">
+      <button id="closeButton" class="closeButton">×</button>
+      <div class="header">
+        <h2 class="title" id="formTitle">Login</h2>
+        <button id="switchButton" class="switchButton">Need an account?</button>
+      </div>
+
+      <form id="loginForm" class="form">
+        <div id="nameGroup" class="formGroup" style="display: none;">
+          <label for="name">Full Name</label>
+          <input id="name" type="text" placeholder="Enter your name" class="input" />
+        </div>
+        <div class="formGroup">
+          <label for="email">Email Address</label>
+          <input id="email" type="email" placeholder="Enter your email" class="input" required />
+        </div>
+        <div class="formGroup">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter your password" class="input" required />
+        </div>
+        <button type="submit" id="submitButton" class="submitButton">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const switchButton = document.getElementById('switchButton');
+    const formTitle = document.getElementById('formTitle');
+    const submitButton = document.getElementById('submitButton');
+    const nameGroup = document.getElementById('nameGroup');
+
+    switchButton.addEventListener('click', function () {
+      if (formTitle.textContent === 'Login') {
+        formTitle.textContent = 'Register';
+        submitButton.textContent = 'Register';
+        switchButton.textContent = 'Have an account?';
+        nameGroup.style.display = 'block';
+      } else {
+        formTitle.textContent = 'Login';
+        submitButton.textContent = 'Login';
+        switchButton.textContent = 'Need an account?';
+        nameGroup.style.display = 'none';
+      }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (formTitle.textContent === 'Register') {
+        alert('Public user registered!');
+        window.location.href = 'ambulance-login.html'; // change to your register redirect
+      } else {
+        alert('Logged in!');
+        window.location.href = 'ambulance_nav.html'; // change to your login redirect
+      }
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function () {
+      document.getElementById('loginModal').style.display = 'none';
+    });
+  </script>
+</body>
+</html>

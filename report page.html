@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Accident Dashboard</title>
+  <link rel="stylesheet" href="report page.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <div class="top-cards">
+      <div class="card"><span>Total Accidents<br><strong>25</strong></span></div>
+      <div class="card"><span>High-Risk Location<br><strong>NH48 - Sector 7</strong></span></div>
+      <div class="card"><span>Avg. Response Time<br><strong>4.2 min</strong></span></div>
+      <div class="card"><span>Lives Saved<br><strong>19</strong></span></div>
+    </div>
+
+    <div class="main-cards">
+      <div class="chart-card">
+        <h3>Accident Trends</h3>
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Heatmap of Accident Locations</h3>
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <div class="bottom-cards">
+      <div class="chart-card">
+        <h3>Response Time Analysis</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Recent Reported Cases</h3>
+        <table>
+          <tr><th>Date</th><th>Location</th><th>Severity</th><th>Time</th><th>Saved</th></tr>
+          <tr><td>Apr 20</td><td>NH44-Sec 9</td><td>High</td><td>4 min</td><td>Yes</td></tr>
+          <tr><td>Apr 19</td><td>NH48-Sec 7</td><td>Moderate</td><td>5 min</td><td>Yes</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+  <script src="report page.js"></script>
+</body>
+</html>

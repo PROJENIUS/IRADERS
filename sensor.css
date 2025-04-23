@@ -1,0 +1,79 @@
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #0e1a2b;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+  
+  .left-column,
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .box {
+    background-color: #1a2b44;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .vitals {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+  }
+  
+  .chart-box canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .split-box {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .split-box .box {
+    flex: 1;
+  }
+  
+  .button {
+    padding: 12px 20px;
+    background-color: #b30000;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .alert-box div {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+  
+  .green { background-color: #008000; }
+  .yellow { background-color: #ffa500; }
+  .red { background-color: #b30000; }
+  
+  .logs p {
+    margin: 6px 0;
+  }
+  

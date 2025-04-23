@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FIR Report</title>
+  <link rel="stylesheet" href="FIR page.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">FIR</h1>
+    <p class="subtitle">Roadside Accident Report</p>
+
+    <form id="firForm">
+      <h3>Auto-Fill</h3>
+      <div class="autofill-row">
+        <input type="text" placeholder="Location" value="123 Main St" readonly />
+        <input type="date" value="2024-04-24" readonly />
+        <input type="time" value="11:15" readonly />
+      </div>
+
+      <h3>Victim Details</h3>
+      <input type="text" placeholder="Name" name="victimName" required />
+
+      <h3>AI Severity Detector</h3>
+      <div class="ai-map-row">
+        <div class="severity-box">HIGH</div>
+        <div class="custom-map">
+          <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Map Pin" />
+        </div>
+      </div>
+
+      <h3>Upload Media</h3>
+      <label class="upload-box">
+        <input type="file" accept="image/*,video/*" hidden />
+        <i class="fa-solid fa-camera"></i>
+        <span>– Upload Images or Videos</span>
+      </label>
+
+      <h3>Description</h3>
+      <textarea placeholder="Description" name="description" required></textarea>
+
+      <label class="checkbox">
+        <input type="checkbox" name="anonymous" />
+        Anonymously Report
+      </label>
+
+      <button type="submit" class="submit-btn">SUBMIT</button>
+    </form>
+  </div>
+
+  <script src="FIR_page.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vitals Sensor Monitoring</title>
+  <link rel="stylesheet" href="sensor.css" />
+</head>
+<body>
+  <h1>IRADERS | Vitals Sensor Monitoring</h1>
+  <div class="container">
+    <!-- LEFT -->
+    <div class="left-column">
+      <!-- Vitals -->
+      <div class="box vitals">
+        <div>
+          <h3>Heart Rate</h3>
+          <p id="heartRate">-- bpm</p>
+        </div>
+        <div>
+          <h3>Pulse</h3>
+          <p id="pulse">-- bpm</p>
+        </div>
+        <div>
+          <h3>Blood Pressure</h3>
+          <p id="bp">-- mmHg</p>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="box chart-box">
+        <h3>Heart Rate (bpm)</h3>
+        <canvas id="chart" width="300" height="150"></canvas>
+      </div>
+
+      <!-- Split Block -->
+      <div class="split-box">
+        <div class="box">
+          <h3>ML-based Analysis</h3>
+          <p>Pattern recognition and anomaly detection active.</p>
+        </div>
+        <div class="box">
+          <button class="button">🔴 Panic Button</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-column">
+      <!-- Alert -->
+      <div class="box">
+        <h3>Alert Status</h3>
+        <div id="status" class="alert-box"></div>
+      </div>
+
+      <!-- Logs -->
+      <div class="box">
+        <h3>Recent Logs</h3>
+        <div id="logs" class="logs"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="sensor.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find a Scheme</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .category-buttons button {
+      padding: 10px 15px;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .red { background-color: #e74c3c; }
+    .blue { background-color: #3498db; }
+    .green { background-color: #27ae60; }
+    .teal { background-color: #16a085; }
+
+    .search-bar {
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      padding: 10px;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-bar button {
+      padding: 10px 15px;
+      margin-left: 5px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .scheme-list {
+      margin-top: 20px;
+    }
+
+    .scheme-list p {
+      margin: 10px 0;
+    }
+
+    .scheme-list b {
+      display: inline-block;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Find the scheme that best suits your needs</h1>
+    <p>Select the applicable category and explore available schemes.</p>
+
+    <div class="search-bar">
+      <input type="text" id="schemeSearch" placeholder="Search for scheme">
+      <button onclick="searchSchemes()">SEARCH</button>
+    </div>
+
+    <div class="category-buttons">
+      <button class="red" onclick="filterSchemes('Woman')">Woman</button>
+      <button class="blue" onclick="filterSchemes('Child')">Child</button>
+      <button class="blue" onclick="filterSchemes('Elderly')">Elderly</button>
+      <button class="teal" onclick="filterSchemes('Physically Disabled')">Physically Disabled</button>
+      <button class="green" onclick="filterSchemes('Hit & Run')">Hit & Run</button>
+      <button class="green" onclick="filterSchemes('Low-income')">Low-income</button>
+      <button class="red" onclick="filterSchemes('Accident Law')">Accident Law</button>
+    </div>
+
+    <div class="scheme-list" id="schemeList">
+      <!-- Schemes will appear here -->
+    </div>
+  </div>
+
+  <script>
+    const schemes = [
+      { name: "One Stop Centre Scheme", category: "Woman", desc: "Emergency support for women in distress, including legal and counseling services." },
+      { name: "PM-JAY", category: "Low-income", desc: "Coverage for hospital treatment up to ₹ 5 lakh per year." },
+      { name: "Nirbhaya Fund", category: "Woman", desc: "Funding for safety and rehabilitation of women affected by violence." },
+      { name: "Balika Samridhi Yojana", category: "Child", desc: "Financial incentives for girl child education and welfare." },
+      { name: "National Social Assistance Programme", category: "Elderly", desc: "Pension support for elderly from low-income households." },
+      { name: "Accident Relief Scheme", category: "Accident Law", desc: "Financial help to road accident victims and their families." },
+      { name: "Motor Vehicle Accident Fund", category: "Accident Law", desc: "Insurance coverage and compensation for hit and run victims." }
+    ];
+
+    function renderSchemes(filteredSchemes) {
+      const list = document.getElementById('schemeList');
+      list.innerHTML = '';
+      filteredSchemes.forEach(scheme => {
+        const item = document.createElement('p');
+        item.innerHTML = `<b>${scheme.name}</b> ${scheme.desc}`;
+        list.appendChild(item);
+      });
+    }
+
+    function filterSchemes(category) {
+      const filtered = schemes.filter(s => s.category === category);
+      renderSchemes(filtered);
+    }
+
+    function searchSchemes() {
+      const query = document.getElementById('schemeSearch').value.toLowerCase();
+      const filtered = schemes.filter(s =>
+        s.name.toLowerCase().includes(query) || s.desc.toLowerCase().includes(query)
+      );
+      renderSchemes(filtered);
+    }
+
+    // Initial render
+    renderSchemes(schemes);
+  </script>
+
+</body>
+</html>

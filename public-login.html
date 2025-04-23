@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Public Register</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Login/Register Modal -->
+  <div class="overlay" id="loginModal">
+    <div class="modal">
+      <button id="closeButton" class="closeButton">×</button>
+      <div class="header">
+        <h2 class="title">Login</h2>
+        <button id="switchButton" class="switchButton">Need an account?</button>
+      </div>
+
+      <form id="authForm" class="form">
+        
+
+        <div id="nameGroup" class="formGroup" style="display: none;">
+          <label for="name">Full Name</label>
+          <input id="name" type="text" placeholder="Enter your name" class="input" />
+        </div>
+
+        <div id="ageGroup" class="formGroup" style="display: none;">
+          <label for="age">Age</label>
+          <input id="age" type="number" placeholder="Enter your age" class="input" />
+        </div>
+
+        <div class="formGroup">
+          <label for="email">Email Address</label>
+          <input id="email" type="email" placeholder="Enter your email" class="input" />
+        </div>
+
+        <div class="formGroup">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter your password" class="input" />
+        </div>
+
+        <div id="bloodGroup" class="formGroup" style="display: none;">
+          <label for="blood">Blood Group</label>
+          <input id="blood" type="text" placeholder="Enter your blood group" class="input" />
+        </div>
+
+        <div id="emergencyGroup" class="formGroup" style="display: none;">
+          <label for="emergency">Emergency Contact Number</label>
+          <input id="emergency" type="tel" placeholder="Enter emergency number" class="input" />
+        </div>
+
+        <button type="submit" class="submitButton">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const switchButton = document.getElementById('switchButton');
+    const title = document.querySelector('.title');
+    const submitButton = document.querySelector('.submitButton');
+    const nameGroup = document.getElementById('nameGroup');
+    const ageGroup = document.getElementById('ageGroup');
+    const bloodGroup = document.getElementById('bloodGroup');
+    const emergencyGroup = document.getElementById('emergencyGroup');
+
+    switchButton.addEventListener('click', function () {
+      const isLogin = title.textContent === 'Login';
+      title.textContent = isLogin ? 'Register' : 'Login';
+      submitButton.textContent = isLogin ? 'Register' : 'Login';
+      switchButton.textContent = isLogin ? 'Have an account?' : 'Need an account?';
+
+      // Toggle public registration fields
+      nameGroup.style.display = isLogin ? 'block' : 'none';
+      ageGroup.style.display = isLogin ? 'block' : 'none';
+      bloodGroup.style.display = isLogin ? 'block' : 'none';
+      emergencyGroup.style.display = isLogin ? 'block' : 'none';
+    });
+
+    document.getElementById('closeButton').addEventListener('click', () => {
+      document.getElementById('loginModal').style.display = 'none';
+    });
+
+    document.getElementById('authForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  if (title.textContent === 'Register') {
+    alert('Public user registered!');
+    // Redirect to homepage after register
+    window.location.href = 'public-login.html'; // change to your actual homepage
+  } else {
+    alert('Logged in!');
+    // Redirect to homepage after login
+    window.location.href = 'public_nav.html'; // change to your actual homepage
+  }
+});
+  </script>
+</body>
+</html>

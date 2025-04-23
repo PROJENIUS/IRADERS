@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #c2e9fb, #0f2027); /* Light to Dark Blue */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .main-section {
+    width: 100%;
+    max-width: 1200px;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .main-heading {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 40px;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .left-section {
+    flex: 1;
+    text-align: center;
+    color: white;
+  }
+  
+  .left-section p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #e0f7fa;
+  }
+  
+  .btn-learn-more {
+    background-color: #ffffff;
+    color: #0f2027;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .btn-learn-more:hover {
+    background-color: #e0f7fa;
+  }
+  
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .right-section img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  .btn-donate {
+    background-color: #007BFF; /* Bootstrap-style blue */
+    color: #fff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-donate:hover {
+    background-color: #0056b3;
+  }
+  .main-heading {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ff1744; /* Bright red */
+    margin-bottom: 40px;
+  }
+    

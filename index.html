@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IRADERS</title>
+  <link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+  <div class="page">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">Smart Hospital Access System</div>
+      <ul>
+        <li id="google_translate_element"></li>
+        <li><a href="#">Home</a></li>
+       <li><a href="#features">Features</a></li>
+        <li><a href="login.html" class="link">Login/Signup</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="hero">
+      <div class="hero-text">
+        <h1>Revolutionizing Emergency Response with Technology</h1>
+        <p>IRADERS is an AI-powered system that instantly detects road accidents using surveillance cameras and smartwatch sensors, and ensures life-saving help reaches the spot without delay.</p>
+        <button onclick="openModal()">Learn How It Works</button>
+      </div>
+      <div>
+        <img src="img/hero-section.jpeg" alt="Smart Parking Illustration" style="max-width: 400px;" />
+      </div>
+    </main>
+
+    <!-- Features -->
+    <section id="features" class="info-section">
+      <h2>How IRADERS Works</h2>
+      <div class="info-cards">
+        <div class="info-card">
+          <h3>Instant Detection</h3>
+          <p>IRADERS utilizes a combination of surveillance cameras and smartwatches equipped with integrated software to monitor vital signs such as heart rate and blood pressure in real-time. These sensors continuously track user health data, and the system intelligently identifies abnormalities or sudden spikes that may indicate an accident. Users pre-register their personal and emergency contact information in the app, which ensures that vital data is available for quick action.</p>
+        </div>
+        <div class="info-card">
+          <h3>Smart Dispatch</h3>
+          <p>Upon detecting an accident, IRADERS instantly alerts the nearest ambulance and shares the GPS location of the incident. The system calculates and suggests the most efficient route to the accident site while simultaneously identifying the closest hospital for further treatment. In addition, accident details are forwarded to local police for quick traffic clearance and emergency coordination. The user’s family members are also notified immediately, ensuring they're informed and can take necessary steps quickly.</p>
+        </div>
+        <div class="info-card">
+          <h3>Seamless Integration</h3>
+          <p>IRADERS integrates all critical emergency services into one coordinated ecosystem. Once an accident is reported, hospitals are notified with the patient’s details in advance so they can prepare for emergency care even before arrival. Depending on the severity of the incident, the system automatically involves relevant authorities, such as the police or fire department, ensuring the right resources are deployed without delay. IRADERS also generates weekly accident analysis reports, identifying trends and helping authorities implement preventive measures.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo-footer">
+          <img src="img/pro-logo.jpg" alt="Logo" style="height: 40px;" />
+        </div>
+        <div class="footer-text">
+          © 2025 <strong>Projenius</strong>. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+ 
+
+  <!-- Google Translate -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+    }
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

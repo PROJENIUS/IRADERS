@@ -1,0 +1,426 @@
+/* Reset some base styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%); /* Background matches the login box */
+    background-color: #f9fafb;
+    color: #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e3a8a; /* New: Charcoal navy */
+    padding: 0.5rem 2rem;
+    height: 60px;
+    color: white;
+    font-size: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .navbar .logo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 1.2rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar li span,
+  .navbar li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  
+  .navbar li span:hover,
+  .navbar li a:hover {
+    color: #0EA5E9; /* New: Brighter hover color */
+  }
+  
+  .navbar li span.active {
+    border-bottom: 2px solid #0EA5E9;
+  }
+  
+  /* Hero Section */
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
+    color: white;
+    position: relative;
+  }
+  
+  .hero-text {
+    max-width: 600px;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.125rem;
+    color: #e2e8f0;
+    margin-bottom: 2rem;
+  }
+  
+  .hero button {
+    background-color: #14B8A6; /* New: Teal */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .hero button:hover {
+    background-color: #0EA5E9; /* New: Sky blue */
+  }
+  
+  .hero img {
+    width: 450px;
+    height: 350px;
+    max-width: 100%;
+  }
+  
+  /* Info Section */
+  .info-section {
+    background-color: #002d5b;
+    color: #fff;
+    padding: 40px 20px 20px;  /* Reduce bottom padding */
+    text-align: center;
+    margin-bottom: 0;  /* Make sure there's no extra margin */
+}
+  
+  .info-section h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  
+  .info-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .info-card {
+    background-color: #F0F9FF; /* New: Light blue */
+    color: #000;
+    border-radius: 10px;
+    width: 300px;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .info-card h3 {
+    background-color: #1c3c2e; /* New: Accent blue */
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: -30px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #002147;
+    color: white;
+    padding: 20px 0;  /* Check if this is too large */
+    text-align: center;
+    margin-top: 0;  /* Make sure there's no extra margin */
+    font-family: 'Segoe UI', sans-serif;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+  
+  .footer .footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .footer .logo-footer img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .footer .footer-text {
+    font-size: 14px;
+    color: #94A3B8; /* New: Cool grey-blue text */
+  }
+  
+  /* Profile Dropdown */
+  .profile-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 10;
+    color: black;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .profile-dropdown button {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    background-color: #14B8A6;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .profile-dropdown button:hover {
+    background-color: #0EA5E9;
+  }
+  
+ .login-page {
+    text-align: center;
+    padding: 3rem;
+    background-color: white;  /* Gradient matching homepage */
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    margin-top: 50px;
+
+}
+
+.login-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: black; /* White for contrast */
+    font-weight: 700;
+}
+
+.role-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.role-btn {
+    padding: 15px;
+    background-color: #2563eb; /* Blue */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.role-btn:hover {
+    background-color: #1d4ed8; /* Darker Blue */
+}
+
+.role-btn:focus {
+    outline: none;
+}
+
+.role-btn:active {
+    background-color: #1c3d8f;
+}
+
+.account-link {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: black; /* Light text color */
+}
+
+.account-link .link {
+    color: #2563eb; /* Blue */
+    text-decoration: none;
+}
+
+.account-link .link:hover {
+    text-decoration: underline;
+}
+
+/* Modal Styles */
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: auto; /* Allow vertical scroll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    padding: 40px 16px; /* Space around modal to avoid clipping */
+  }
+  
+  /* Modal */
+  .modal {
+    background-color: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1);
+    padding: 32px;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    animation: scaleIn 0.3s ease-out;
+  }
+  
+  
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Scale-in animation */
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Close button */
+  .closeButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Header styles */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+  
+  .title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1e3a8a;
+  }
+  
+  .switchButton {
+    color: #1e3a8a;
+    font-size: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Form styles */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .formGroup label {
+    font-size: 14px;
+    color: #333333;
+  }
+  
+  /* Input fields */
+  .input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: transparent;
+    font-size: 16px;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #2ca58d;
+  }
+  
+  /* Submit button */
+  .submitButton {
+    padding: 12px;
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #1e3a8a;
+    transform: translateY(-1px);
+  }
+  
+  .submitButton:active {
+    transform: translateY(1px);
+  }
+  
+  /* Reduce animation for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .overlay,
+    .modal {
+      animation: none;
+    }
+  }
+  

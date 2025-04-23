@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IRADES Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard {
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .datetime p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      flex: 1;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .red { background-color: #ff4c4c; }
+    .blue { background-color: #3da5ff; }
+    .teal { background-color: #00bfa5; }
+    .orange { background-color: #ff9100; }
+
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .chart {
+      background-color: #1e1e1e;
+      height: 340px;
+      border-radius: 10px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .chart canvas {
+      max-height: 250px;
+    }
+
+    .chart-title {
+      font-size: 14px;
+      text-align: center;
+      margin-top: 5px;
+      color: white;
+      font-size: 18px;
+    }
+
+    #map {
+      height: 280px;
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .bottom {
+      display: flex;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .recent, .suggestions {
+      flex: 1;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    table {
+      width: 100%;
+      color: white;
+      border-collapse: collapse;
+    }
+
+    table th, table td {
+      padding: 8px;
+      border-bottom: 1px solid #444;
+    }
+  </style>
+</head>
+<body>
+
+<div class="dashboard">
+  <div class="header">
+    <h1>IRADES DASHBOARD</h1>
+    <div class="datetime">
+      <p id="date"></p>
+      <p id="time"></p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="card red">
+      <h2 id="accidents">142</h2>
+      <p>Total Accidents</p>
+    </div>
+    <div class="card blue">
+      <h2>8.2 min</h2>
+      <p>Avg Response Time</p>
+    </div>
+    <div class="card teal">
+      <h2>5</h2>
+      <p>Active Hotspots</p>
+    </div>
+    <div class="card orange">
+      <h2>Overspeeding</h2>
+      <p>Most Common Cause</p>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="chart">
+      <div id="map"></div>
+      <div class="chart-title">Live Accident Hotspots in Coimbatore</div>
+    </div>
+    <div class="chart">
+      <canvas id="trendChart"></canvas>
+      <div class="chart-title">Daily Accident Trend</div>
+    </div>
+    <div class="chart">
+      <canvas id="causeChart"></canvas>
+      <div class="chart-title">Cause Distribution</div>
+    </div>
+    <div class="chart">
+      <canvas id="timeofdayChart"></canvas>
+      <div class="chart-title">Time of Day Breakdown</div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="recent">
+      <h3>Recent Accidents</h3>
+      <table id="accident-table">
+        <tr>
+          <th>Time</th>
+          <th>Location</th>
+          <th>Severity</th>
+          <th>Action Taken</th>
+        </tr>
+      </table>
+    </div>
+    <div class="suggestions">
+      <h3>Suggestions</h3>
+      <ul>
+        <li>Install signal camera at Sector 18</li>
+        <li>High-speed incidents near Junction X</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+  // Update Time & Date
+  function updateDateTime() {
+    const now = new Date();
+    document.getElementById('date').innerText = now.toDateString();
+    document.getElementById('time').innerText = now.toLocaleTimeString();
+  }
+
+  // Random accident count
+  function updateAccidents() {
+    const accidents = 140 + Math.floor(Math.random() * 20);
+    document.getElementById('accidents').innerText = accidents;
+  }
+
+  // Table with simulated data
+  function populateRecentAccidents() {
+    const table = document.getElementById('accident-table');
+    table.innerHTML = `
+      <tr>
+        <th>Time</th>
+        <th>Location</th>
+        <th>Severity</th>
+        <th>Action Taken</th>
+      </tr>
+    `;
+
+    const severities = ["Minor", "Moderate", "Severe"];
+    const actions = ["Units Dispatched", "Secured", "Investigation Underway"];
+    const locations = ["Gandhipuram", "RS Puram", "Avinashi Rd", "Saibaba Colony", "Peelamedu"];
+
+    for (let i = 0; i < 3; i++) {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - Math.floor(Math.random() * 60));
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const row = `
+        <tr>
+          <td>${time}</td>
+          <td>${locations[Math.floor(Math.random() * locations.length)]}</td>
+          <td>${severities[Math.floor(Math.random() * severities.length)]}</td>
+          <td>${actions[Math.floor(Math.random() * actions.length)]}</td>
+        </tr>
+      `;
+      table.innerHTML += row;
+    }
+  }
+
+  // Leaflet Map
+  function initMap() {
+    const map = L.map('map').setView([11.0168, 76.9558], 12); // Coimbatore
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    const hotspots = [
+      { lat: 11.0176, lng: 76.9551, severity: "Severe" },
+      { lat: 11.0075, lng: 76.9661, severity: "Moderate" },
+      { lat: 11.0338, lng: 76.9725, severity: "Minor" }
+    ];
+    hotspots.forEach(p => {
+      L.marker([p.lat, p.lng]).addTo(map).bindPopup(`${p.severity} Accident`);
+    });
+  }
+
+  // Chart setup
+  function randomChartData(labels, max = 20) {
+    return labels.map(() => Math.floor(Math.random() * max));
+  }
+
+  function renderCharts() {
+    new Chart(document.getElementById('trendChart'), {
+      type: 'line',
+      data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        datasets: [{
+          label: "Accidents",
+          data: randomChartData(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]),
+          borderColor: "#3da5ff",
+          backgroundColor: "rgba(61,165,255,0.2)"
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('causeChart'), {
+      type: 'pie',
+      data: {
+        labels: ["Overspeeding", "Drunk Driving", "Signal Violation", "Others"],
+        datasets: [{
+          data: randomChartData(["Overspeeding", "Drunk Driving", "Signal Violation", "Others"]),
+          backgroundColor: ["#ff4c4c", "#ff9100", "#3da5ff", "#00bfa5"]
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('timeofdayChart'), {
+      type: 'bar',
+      data: {
+        labels: ["Morning", "Noon", "Evening", "Night"],
+        datasets: [{
+          label: "Accidents",
+          data: randomChartData(["Morning", "Noon", "Evening", "Night"]),
+          backgroundColor: "#00bfa5"
+        }]
+      }
+    });
+  }
+
+  // Re-render every 5 seconds
+  setInterval(() => {
+    updateDateTime();
+    updateAccidents();
+    populateRecentAccidents();
+  }, 5000);
+
+  window.onload = () => {
+    updateDateTime();
+    updateAccidents();
+    populateRecentAccidents();
+    initMap();
+    renderCharts();
+  };
+</script>
+</body>
+</html>

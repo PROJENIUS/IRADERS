@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IRADERS | Camera Page</title>
+  <link rel="stylesheet" href="Camera_ui.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>IRADERS | Real-Time Accident Detection via Cameras</h1>
+    <div class="camera-grid">
+      <div class="camera-card"><p>Camera ID: CAM_01<br><span>NH 46, Section 12</span><span class="status active">● Active</span></p><img src="img/1.webp" /></div>
+      <div class="camera-card"><p>Camera ID: CAM_02<br><span>MG Road</span><span class="status active">● Active</span></p><img src="img/car1.webp" /></div>
+      <div class="camera-card"><p>Camera ID: CAM_03<br><span>Market Street</span><span class="status offline">● Offline</span></p><img src="img/car2.webp" /></div>
+      <div class="camera-card"><p>Camera ID: CAM_04<br><span>Highway 21</span><span class="status active">● Active</span></p><img src="img/imagescar.jpg" /></div>
+    </div>
+
+    <div class="info-panels">
+      <div class="panel">
+        <h3>AI Detection Area</h3>
+        <p class="alert">🔴 Potential crash detected on MG Road</p>
+      </div>
+      <div class="panel">
+        <h3>Event Logs</h3>
+        <table>
+          <tr><th>Time</th><th>Camera</th><th>Event</th></tr>
+          <tr><td>11:25 AM</td><td>CAM_01</td><td class="green">Active</td></tr>
+          <tr><td>11:20 AM</td><td>MG_RDad</td><td class="red">Motion</td></tr>
+          <tr><td>11:13 AM</td><td>All normal</td><td class="gray">Nos</td></tr>
+          <tr><td>11:10 AM</td><td>All normal</td><td class="gray">Nos</td></tr>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>Snapshots & Evidence</h3>
+        <div class="snapshots">
+          <img src="img/snap1.avif" alt="Snapshot 1" />
+          <img src="img/snap2.avif" alt="Snapshot 2" />
+        </div>
+        <p>📷 Civ: 11:23 AM &nbsp; | &nbsp; Click to Expand</p>
+      </div>
+      <div class="panel">
+        <h3>Accident Insights</h3>
+        <p class="alert">🔴 Potential crash detected on MG Road</p>
+        <p>AI &nbsp; Last Event at ‘15</p>
+        <p>AI &nbsp; Last Anormal</p>
+      </div>
+      <div class="panel controls">
+        <button>🔄 Refresh</button>
+        <button>⬇️ Download Footage</button>
+        <button>🚩 Flag Feed</button>
+        <button class="disable">🔴 Disable Camera</button>
+      </div>
+      <div class="panel">
+        <h3>How AI Helps</h3>
+        <ul>
+          <li>Vehicle collisions</li>
+          <li>Sudden stops & flips</li>
+          <li>Pedestrians hit</li>
+          <li>Traffic violations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="Camera_ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ambulance Ride History</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-dC5DUUMGBwG9XscsGrdQ6xN+S/6bRExC2f5Bv6UUl8ghpGlQO1OEAZYPoaN+U6LG7xYjddW81Vi1HyNDc4m5IQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background-color: #0d1117;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    .summary {
+      display: flex;
+      gap: 25px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: #161b22;
+      padding: 20px;
+      border-radius: 12px;
+      flex: 1 1 220px;
+      min-width: 220px;
+      text-align: center;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card h2 {
+      font-size: 24px;
+      margin: 5px 0;
+    }
+
+    .card p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .card img.card-icon {
+      height: 35px;
+      width: 35px;
+      margin: 0 auto 10px;
+      display: block;
+      filter: brightness(0) invert(1);
+      object-fit: contain;
+    }
+
+    .trip-header {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 15px;
+      background-color: #161b22;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #2a2f36;
+    }
+
+    th {
+      background-color: #1f2630;
+    }
+
+    .status-completed {
+      color: #4caf50;
+    }
+
+    .status-delayed {
+      color: #ff9800;
+    }
+
+    .status-icon-img {
+      height: 20px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    .map-card {
+      background-color: #161b22;
+      margin-top: 30px;
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 15px;
+    }
+
+    #map {
+      height: 300px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .summary {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>RIDE HISTORY</h1>
+
+<div class="summary">
+  <div class="card">
+    <img src="img/trip-removebg-preview.png" class="card-icon" alt="Trip Icon">
+    <h2 id="totalTrips">0</h2>
+    <p>Total Trips this Month</p>
+  </div>
+  <div class="card">
+    <img src="img/time-removebg-preview.png" class="card-icon" alt="Time Icon">
+    <h2 id="avgResponse">0.0 min</h2>
+    <p>Avg. Response Time</p>
+  </div>
+  <div class="card">
+    <img src="img/fasttrip-removebg-preview.png" class="card-icon" alt="Fast Trip Icon">
+    <h2 id="fastestTrip">0.0 min</h2>
+    <p>Fastest Trip</p>
+  </div>
+  <div class="card">
+    <img src="img/lifesave-removebg-preview.png" class="card-icon" alt="Life Save Icon">
+    <h2 id="livesSaved">0</h2>
+    <p>Lives Saved</p>
+  </div>
+</div>
+
+<div class="trip-header">
+  <h2>Trip History</h2>
+</div>
+
+<table id="tripTable">
+  <thead>
+    <tr>
+      <th>Date & Time</th>
+      <th>Location</th>
+      <th>Response Time</th>
+      <th>Status</th>
+      <th>Patient Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Populated dynamically -->
+  </tbody>
+</table>
+
+<div class="map-card">
+  <h2><i class="fas fa-map-marked-alt"></i> Last Trip Route</h2>
+  <div id="map"></div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const coimbatoreLocations = [
+    "NH44, Avinashi Road", "NH544, Peelamedu", "NH81, Gandhipuram", 
+    "Ring Road, Ondipudur", "Thadagam Rd, RS Puram", 
+    "Singanallur", "Ukkadam", "Podanur", "Saravanampatti", 
+    "Race Course", "Kalapatti"
+  ];
+  const statuses = ["Completed", "Delayed"];
+  const genders = ["Male", "Female"];
+
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function generateTripData() {
+    const tripData = [];
+    const now = new Date();
+
+    for (let i = 0; i < 6; i++) {
+      const date = new Date(now.getTime() - i * 86400000 + randomInt(-3000000, 3000000));
+      const responseTime = (Math.random() * 3 + 2).toFixed(1);
+      const status = statuses[randomInt(0, 1)];
+      const gender = genders[randomInt(0, 1)];
+      const age = randomInt(20, 60);
+      const location = coimbatoreLocations[randomInt(0, coimbatoreLocations.length - 1)];
+
+      tripData.push({
+        datetime: date.toLocaleString(),
+        location,
+        responseTime,
+        status,
+        patient: `${gender}, ${age}y`
+      });
+    }
+
+    return tripData;
+  }
+
+  function updateDashboard() {
+    const trips = generateTripData();
+    const tbody = document.querySelector("#tripTable tbody");
+    tbody.innerHTML = "";
+
+    let totalTime = 0;
+    let fastest = 10;
+
+    trips.forEach((trip, index) => {
+      totalTime += parseFloat(trip.responseTime);
+      fastest = Math.min(fastest, parseFloat(trip.responseTime));
+
+      const iconSrc = trip.status === 'Completed'
+        ? 'img/greentick-removebg-preview.png'
+        : 'img/yellowwarning-removebg-preview.png';
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${trip.datetime}</td>
+        <td>${trip.location}</td>
+        <td>${trip.responseTime} min</td>
+        <td class="${trip.status === 'Completed' ? 'status-completed' : 'status-delayed'}">
+          <img src="${iconSrc}" alt="${trip.status}" class="status-icon-img">${trip.status}
+        </td>
+        <td>${trip.patient}</td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    document.getElementById("totalTrips").innerText = trips.length;
+    document.getElementById("avgResponse").innerText = (totalTime / trips.length).toFixed(1) + " min";
+    document.getElementById("fastestTrip").innerText = fastest.toFixed(1) + " min";
+    document.getElementById("livesSaved").innerText = randomInt(10, 30);
+
+    setLastTripMap();
+  }
+
+  function setLastTripMap() {
+    const map = L.map('map').setView([11.0168, 76.9558], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const start = [11.0212, 76.9515];
+    const end = [11.0034, 76.9661];
+    const route = L.polyline([start, end], { color: 'deepskyblue' }).addTo(map);
+    L.marker(start).addTo(map).bindPopup("Start Point").openPopup();
+    L.marker(end).addTo(map).bindPopup("Destination");
+    map.fitBounds(route.getBounds());
+  }
+
+  window.onload = updateDashboard;
+</script>
+
+</body>
+</html>
